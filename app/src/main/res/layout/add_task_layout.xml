@@ -8,7 +8,7 @@
         android:id="@+id/add_task_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:paddingLeft="20dp"
         android:text="Create"
         android:textSize="30sp" />
@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:text="New Task"
         android:textSize="30sp"
+        android:layout_marginTop="10dp"
         android:paddingLeft="20dp"
         android:layout_below="@id/add_task_title"
         />
@@ -27,12 +28,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@id/add_task_title"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="100dp"
         android:paddingLeft="25dp"
         android:paddingRight="25dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_task_name_input"
+            android:id="@+id/new_task_name_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/label"
@@ -42,9 +43,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_task_title_input"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -55,12 +56,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@id/add_task_newTitle_layout"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:paddingLeft="25dp"
         android:paddingRight="25dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_reminder_date_input"
+            android:id="@+id/new_reminder_date_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/reminder_date_label"
@@ -69,6 +70,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_reminder_date_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
@@ -86,7 +88,7 @@
         android:paddingRight="25dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_hour_interval_input"
+            android:id="@+id/new_hour_interval_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hour_interval_label"
@@ -95,20 +97,22 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_hour_interval_input"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
+
     <ImageView
         android:id="@+id/alarm_add_task"
         android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_baseline_timer_24"
+        android:layout_height="35dp"
         android:layout_below="@id/add_task_hour_interval_layout"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#8E8D8D"
         android:paddingLeft="30dp"
-        android:layout_marginTop="40dp"/>
+        android:src="@drawable/ic_baseline_notifications_none_24" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -116,7 +120,7 @@
         android:layout_toRightOf="@id/alarm_add_task"
         android:layout_below="@id/add_task_hour_interval_layout"
         android:layout_marginTop="45dp"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:layout_marginLeft="10dp"/>
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/has_reminder_switch"
@@ -138,20 +142,37 @@
         android:paddingRight="25dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_category_input"
+            android:id="@+id/new_category_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/category"
             app:endIconMode="dropdown_menu"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
             <AutoCompleteTextView
+                android:id="@+id/new_category_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                />
+                android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
-
     </LinearLayout>
+    <Button
+        android:id="@+id/create_task_btn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/create_task_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        app:icon="@drawable/ic_baseline_add_24"
+        android:backgroundTint="#1E90FF"
+        android:textSize="23sp"
+        app:iconGravity="textStart"/>
+    <ImageButton
+        android:id="@+id/cancel_createTask_Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:backgroundTint="@color/white"/>
 
 </RelativeLayout>

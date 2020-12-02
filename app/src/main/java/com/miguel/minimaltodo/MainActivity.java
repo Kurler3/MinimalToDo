@@ -1,6 +1,7 @@
 package com.miguel.minimaltodo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,19 +37,20 @@ public class MainActivity extends AppCompatActivity {
         mTaskList.setAdapter(adapter);
 
 
-        mAddTaskBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),AddTask.class);
-                startActivity(i);
-            }
+        mAddTaskBtn.setOnClickListener(view -> {
+            Intent i = new Intent(MainActivity.this, AddTask.class);
+            startActivityForResult(i, AddTask.ADD_TASK_REQUEST_CODE);
         });
     }
     public void InitializeViews(){
         mTaskList = findViewById(R.id.task_list);
         mAddTaskBtn = findViewById(R.id.add_task_Btn);
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //If a new task was created then add the task to the database. This will update the recycler view due to the listener.
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
