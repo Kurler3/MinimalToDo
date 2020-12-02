@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,8 +31,18 @@ public class MainActivity extends AppCompatActivity {
 
         mTaskList.setLayoutManager(layoutManager);
 
-        //Create RecyclerView adapter and assign it to the list
+        TaskListAdapter adapter = new TaskListAdapter(getApplicationContext(), layoutManager);
 
+        mTaskList.setAdapter(adapter);
+
+
+        mAddTaskBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),AddTask.class);
+                startActivity(i);
+            }
+        });
     }
     public void InitializeViews(){
         mTaskList = findViewById(R.id.task_list);

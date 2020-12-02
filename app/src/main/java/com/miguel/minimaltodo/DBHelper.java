@@ -24,6 +24,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         public static final String COLUMN_NAME_TASK_NAME = "task_name";
         public static final String COLUMN_NAME_TASK_REMINDER_DATE = "reminder_date";
+        public static final String COLUMN_NAME_TASK_HOUR_INTERVAL = "hour_interval";
+        public static final String COLUMN_NAME_TASK_HAS_REMINDER = "has_reminder";
         public static final String COLUMN_NAME_IMAGE = "image";
     }
 
@@ -35,6 +37,8 @@ public class DBHelper extends SQLiteOpenHelper {
                     DBHelperItem._ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
                     DBHelperItem.COLUMN_NAME_TASK_NAME + TEXT_TYPE + COMMA_SEP +
                     DBHelperItem.COLUMN_NAME_TASK_REMINDER_DATE + TEXT_TYPE + COMMA_SEP +
+                    DBHelperItem.COLUMN_NAME_TASK_HOUR_INTERVAL + TEXT_TYPE + COMMA_SEP +
+                    DBHelperItem.COLUMN_NAME_TASK_HAS_REMINDER + " INTEGER" + COMMA_SEP +
                     DBHelperItem.COLUMN_NAME_IMAGE + " INTEGER " + ")";
 
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + DBHelperItem.TABLE_NAME;
@@ -74,6 +78,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBHelperItem._ID,
                 DBHelperItem.COLUMN_NAME_TASK_NAME,
                 DBHelperItem.COLUMN_NAME_TASK_REMINDER_DATE,
+                DBHelperItem.COLUMN_NAME_TASK_HOUR_INTERVAL,
+                DBHelperItem.COLUMN_NAME_TASK_HAS_REMINDER,
                 DBHelperItem.COLUMN_NAME_IMAGE
         };
         Cursor c = db.query(DBHelperItem.TABLE_NAME, projection, null, null, null, null, null);
@@ -82,18 +88,26 @@ public class DBHelper extends SQLiteOpenHelper {
             task.setId(c.getInt(c.getColumnIndex(DBHelperItem._ID)));
             task.setTitle(c.getString(c.getColumnIndex(DBHelperItem.COLUMN_NAME_TASK_NAME)));
             task.setReminderDate(c.getString(c.getColumnIndex(DBHelperItem.COLUMN_NAME_TASK_REMINDER_DATE)));
+            task.setHourInterval(c.getString(c.getColumnIndex(DBHelperItem.COLUMN_NAME_TASK_HOUR_INTERVAL)));
+            task.setHasReminder(hasReminderCheck(c.getInt(c.getColumnIndex(DBHelperItem.COLUMN_NAME_TASK_HAS_REMINDER))));
             task.setImage(c.getInt(c.getColumnIndex(DBHelperItem.COLUMN_NAME_IMAGE)));
             c.close();
             return task;
         }
         return null;
     }
+    private boolean hasReminderCheck(int choice){
+        if(choice==1) return true;
+        else return false;
+    }
 
-    public long addTask(String title, String dateReminder, int imageResource){
+    public long addTask(String title, String dateReminder,String hourInterval, boolean hasReminder, int imageResource){
           SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(DBHelperItem.TABLE_NAME, title);
         cv.put(DBHelperItem.COLUMN_NAME_TASK_REMINDER_DATE, dateReminder);
+        cv.put(DBHelperItem.COLUMN_NAME_TASK_HOUR_INTERVAL, hourInterval);
+        cv.put(DBHelperItem.COLUMN_NAME_TASK_HAS_REMINDER, hasReminder);
         cv.put(DBHelperItem.COLUMN_NAME_IMAGE, imageResource);
 
         long rowId = db.insert(DBHelperItem.TABLE_NAME, null, cv);
@@ -112,7 +126,7 @@ public class DBHelper extends SQLiteOpenHelper {
            db.update(DBHelperItem.TABLE_NAME,cv,DBHelperItem._ID + "=" + task.getId(),null);
 
            if(onDatabaseChangedListener!=null){
-               onDatabaseChangedListener.OnTaskRenamed();
+               onDatabaseChangedListener.OnTaskRenamed(task.getId());
            }
     }
     public void changeTaskReminderDate(Task task, String newDate){
@@ -123,17 +137,28 @@ public class DBHelper extends SQLiteOpenHelper {
         db.update(DBHelperItem.TABLE_NAME,cv,DBHelperItem._ID + "=" + task.getId(),null);
 
         if(onDatabaseChangedListener!=null){
-            onDatabaseChangedListener.OnTaskReminderDateChanged();
+            onDatabaseChangedListener.OnTaskReminderDateChanged(task.getId());
         }
     }
-    //remove task
+    public void changeTaskHasReminder(Task task){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(DBHelperItem.COLUMN_NAME_TASK_HOUR_INTERVAL, task.hasReminder());
+
+        db.update(DBHelperItem.TABLE_NAME,cv,DBHelperItem._ID + "=" + task.getId(),null);
+
+        if(onDatabaseChangedListener!=null){
+            onDatabaseChangedListener.OnTaskHasReminderChanged(task.getId());
+        }
+    }
+
     public void removeTaskAtPosition(int id){
         SQLiteDatabase db = getWritableDatabase();
         String[] whereArgs = { String.valueOf(id) };
         db.delete(DBHelperItem.TABLE_NAME, "_ID=?", whereArgs);
 
         if(onDatabaseChangedListener!=null){
-            onDatabaseChangedListener.OnTaskRemoved();
+            onDatabaseChangedListener.OnTaskRemoved(id);
         }
     }
 }

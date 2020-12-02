@@ -12,6 +12,21 @@ public class Task implements Parcelable {
     int mImage;
     String mTitle;
     String mReminderDate;
+    String mHourInterval;
+    boolean mHasReminder;
+
+    public boolean hasReminder() {
+        return mHasReminder;
+    }
+    public String getHourInterval(){
+        return mHourInterval;
+    }
+    public void setHourInterval(String hourInterval){
+        this.mHourInterval = hourInterval;
+    }
+    public void setHasReminder(boolean hasReminder) {
+        this.mHasReminder = hasReminder;
+    }
 
     public Task(){
     }
@@ -65,7 +80,8 @@ public class Task implements Parcelable {
         mTitle = in.readString();
         mReminderDate = in.readString();
         mId = in.readInt();
-
+        mHasReminder = in.readBoolean();
+        mHourInterval = in.readString();
     }
     @Override
     public int describeContents() {
@@ -79,5 +95,7 @@ public class Task implements Parcelable {
        parcel.writeString(mTitle);
        parcel.writeString(mReminderDate);
        parcel.writeInt(mId);
+       parcel.writeBoolean(mHasReminder);
+       parcel.writeString(mHourInterval);
     }
 }

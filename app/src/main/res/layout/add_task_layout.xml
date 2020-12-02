@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/add_task_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:paddingLeft="20dp"
+        android:text="Create"
+        android:textSize="30sp" />
+    <TextView
+        android:id="@+id/add_task_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Task"
+        android:textSize="30sp"
+        android:paddingLeft="20dp"
+        android:layout_below="@id/add_task_title"
+        />
+    <LinearLayout
+        android:id="@+id/add_task_newTitle_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/add_task_title"
+        android:layout_marginTop="120dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_task_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label"
+            app:startIconDrawable="@drawable/task_name"
+            app:startIconContentDescription="@string/content_description_end_icon"
+            app:endIconMode="clear_text"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_task_newReminderDate_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/add_task_newTitle_layout"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_reminder_date_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/reminder_date_label"
+            app:endIconDrawable="@drawable/ic_baseline_date_range_24"
+            app:endIconMode="custom"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_task_hour_interval_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/add_task_newReminderDate_layout"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_hour_interval_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hour_interval_label"
+            app:endIconDrawable="@drawable/ic_baseline_access_time_24"
+            app:endIconMode="custom"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/alarm_add_task"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_timer_24"
+        android:layout_below="@id/add_task_hour_interval_layout"
+        android:paddingLeft="30dp"
+        android:layout_marginTop="40dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remind_me_add_task"
+        android:layout_toRightOf="@id/alarm_add_task"
+        android:layout_below="@id/add_task_hour_interval_layout"
+        android:layout_marginTop="45dp"
+        android:textSize="25sp"
+        android:layout_marginLeft="10dp"/>
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/has_reminder_switch"
+        android:layout_below="@id/add_task_hour_interval_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="30dp"
+        android:checked="true"/>
+    <LinearLayout
+        android:id="@+id/add_task_category_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/alarm_add_task"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_category_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/category"
+            app:endIconMode="dropdown_menu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

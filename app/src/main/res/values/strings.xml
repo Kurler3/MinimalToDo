@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MinimalToDo</string>
+    <string name="label">Task Name</string>
+    <string name="content_description_end_icon">Input a title for the task</string>
+    <string name="reminder_date_label">Date</string>
+    <string name="hour_interval_label">Hour Interval</string>
+    <string name="remind_me_add_task">Remind me</string>
+    <string name="category">Category</string>
 </resources>
